@@ -31,5 +31,5 @@ urlpatterns = [
     path('add_author/', view.add_author, name='add_author'),
     path('accounts/', include('django.contrib.auth.urls')),
 ]
-
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

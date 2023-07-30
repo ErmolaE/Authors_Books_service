@@ -12,14 +12,27 @@ def books(request):
 
     return render(request, 'books.html', {"books": books, "viewed_books": viewed_books})
 
+
 def book(request, id):
     try:
-        b = Book.objects.get(id_book=id)
+        b = Book.objects.get(id=id)
     except:
-        return Http404(request)
+        raise Http404
 
     viewed_books = request.session.get("viewed_books", {})
-    viewed_books[b.id_book] = b.id_book
+    viewed_books[b.id] = b.id
     request.session["viewed_books"] = viewed_books
 
     return render(request, 'book.html', {"book": b, "viewed_books": viewed_books})
+
+
+def authors(request): pass
+
+
+def author(request, id): pass
+
+
+def add_book(request): pass
+
+
+def add_author(request): pass
