@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block maincontent %}
+
+<br><br><br>
+
+<div class="container">
+    <div class="row">
+        {% for a in authors %}
+        <div class="col-md-4 col-sm-6">
+            <div class="our-team">
+                <div class="team-image">
+                    {% if a.photo %}
+                    <img src="{{ a.photo.url }}">
+                    {% else %}
+                    {% load static %}
+                    <img src="{% static 'app/img/not_avalaible.png' %}" />
+                    {% endif %}
+                    <p class="description">
+                        {{ a.biography }}
+                    </p>
+                </div>
+                <div class="team-info">
+                    <h3 class="title"><a href="{% url 'author' a.id %}">{{ a }}</a></h3>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+
+{% endblock maincontent %}

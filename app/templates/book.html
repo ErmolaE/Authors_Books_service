@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block maincontent %}
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-6 blog_box">
+            <a href="#" class="mask">
+                {% if book.cover %}
+                <img src="{{ book.cover.url }}" alt="cover" class="img-responsive zoom-img" />
+                {% else %}
+                {% load static %}
+                <img src="{% static 'app/img/not_avalaible.png' %}" alt="cover" class="img-responsive zoom-img" />
+                {% endif %}
+            </a>
+            <h3>{{ book.title }}</h3>
+            <div class="links">
+                <ul>
+                    <li>
+                        <span>
+                            {% for a in book.list_authors %}
+                                <a href="{% url 'author' a.id %}">{{ a }}; </a>
+                            {% endfor %}
+                        </span>
+                    </li>
+                    <li><span>Genre: {{ book.genre }}</span></li>
+                    <li><span>ISBN: {{ book.isbn }}</span></a></li>
+                </ul>
+            </div>
+            <p>{{ book.description }}</p>
+            <a href="{{ book.book_text.url }}" class="btn1 btn-8 btn-8c">Download</a>
+            <div class="clearfix"></div>
+        </div>
+
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+{% endblock maincontent %}

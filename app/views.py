@@ -26,10 +26,20 @@ def book(request, id):
     return render(request, 'book.html', {"book": b, "viewed_books": viewed_books})
 
 
-def authors(request): pass
+def authors(request): 
 
+    authors = Author.objects.all()
 
-def author(request, id): pass
+    return render(request, 'authors.html', {"authors": authors})
+
+def author(request, id): 
+    try:
+        a = Author.objects.get(id=id)
+    except:
+        raise Http404
+    authors_books = Book.objects.filter(author = a)
+    
+    return render(request, 'author.html', {"author": a, "authors_books": authors_books})
 
 
 def add_book(request): pass

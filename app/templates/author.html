@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block maincontent %}
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-6 blog_box">
+            <a href="#" class="mask">
+                {% if author.photo %}
+                <img src="{{ author.photo.url }}" alt="photo" class="img-responsive zoom-img" />
+                {% else %}
+                {% load static %}
+                <img src="{% static 'app/img/not_avalaible.png' %}" alt="cover" class="img-responsive zoom-img" />
+                {% endif %}
+            </a>
+            <h3>{{ author }}</h3>
+            <p>{{ author.biography }}</p>
+            <div>
+                <h3>Books:</h3>
+                {% for b in authors_books %}
+                    <a href="{% url 'book' b.id %}">{{ b.title }}; </a>
+                {% endfor %}
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+{% endblock maincontent %}
