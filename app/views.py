@@ -5,7 +5,11 @@ from .models import Author, Book
 
 # Create your views here.
 
+
 def books(request):
+    """
+    View for a list of books.
+    """
 
     books = Book.objects.all()
     viewed_books = request.session.get("viewed_books", {})
@@ -14,6 +18,9 @@ def books(request):
 
 
 def book(request, id):
+    """
+    View function to display a book based on its ID.
+    """
     try:
         b = Book.objects.get(id=id)
     except:
@@ -26,25 +33,35 @@ def book(request, id):
     return render(request, 'book.html', {"book": b, "viewed_books": viewed_books})
 
 
-def authors(request): 
+def authors(request):
+    """
+    View for a list of authors.
+    """
 
     authors = Author.objects.all()
 
     return render(request, 'authors.html', {"authors": authors})
 
-def author(request, id): 
+
+def author(request, id):
+    """
+    View function to display an author based on its ID.
+    """
     try:
         a = Author.objects.get(id=id)
     except:
         raise Http404
-    authors_books = Book.objects.filter(author = a)
-    
+    authors_books = Book.objects.filter(author=a)
+
     return render(request, 'author.html', {"author": a, "authors_books": authors_books})
 
 
-def add_book(request): 
+def add_book(request):
+    """
+    Adds a new book to the database.
+    """
 
-    if request.method == "POST": 
+    if request.method == "POST":
         form = AddBook(request.POST, request.FILES)
 
         if form.is_valid():
@@ -63,16 +80,18 @@ def add_book(request):
 
             return redirect('books')
 
-
-    else: 
+    else:
         form = AddBook()
 
     return render(request, 'add_book.html', {'form': form})
 
 
-def add_author(request): 
-    
-    if request.method == "POST": 
+def add_author(request):
+    """
+    Adds a new author to the database.
+    """
+
+    if request.method == "POST":
         form = AddAuthor(request.POST, request.FILES)
 
         if form.is_valid():
@@ -86,8 +105,7 @@ def add_author(request):
 
             return redirect('authors')
 
-
-    else: 
+    else:
         form = AddAuthor()
 
     return render(request, 'add_author.html', {'form': form})

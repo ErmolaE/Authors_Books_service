@@ -20,7 +20,7 @@
                     <li>
                         <span>
                             {% for a in book.list_authors %}
-                                <a href="{% url 'author' a.id %}">{{ a }}; </a>
+                            <a href="{% url 'author' a.id %}">{{ a }}; </a>
                             {% endfor %}
                         </span>
                     </li>

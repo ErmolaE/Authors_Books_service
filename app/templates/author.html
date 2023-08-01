@@ -19,7 +19,7 @@
             <div>
                 <h3>Books:</h3>
                 {% for b in authors_books %}
-                    <a href="{% url 'book' b.id %}">{{ b.title }}; </a>
+                <a href="{% url 'book' b.id %}">{{ b.title }}; </a>
                 {% endfor %}
             </div>
 

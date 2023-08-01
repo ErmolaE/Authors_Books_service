@@ -2,6 +2,7 @@ from django.db import models
 
 # Create your models here.
 
+
 class Author(models.Model):
     """
     Model representing an author.
@@ -29,15 +30,16 @@ class Book(models.Model):
     book_text = models.FileField(blank=False, upload_to='books/')
     cover = models.ImageField(upload_to='covers/', blank=True, default='app/img/not_avalaible.png')
     genre = models.CharField(max_length=50, blank=True)
-    isbn = models.CharField('ISBN',max_length=13, blank=True, help_text='13 Character <a href="https://www.isbn-international.org/content/what-isbn">ISBN number</a>')
-    author = models.ManyToManyField(Author)   # ManyToManyField used because author can have many books. Books can have many authors.
+    isbn = models.CharField('ISBN', max_length=13, blank=True, help_text='13 Character <a href="https://www.isbn-international.org/content/what-isbn">ISBN number</a>')
+    author = models.ManyToManyField(Author)
+    # ManyToManyField used because author can have many books. Books can have many authors.
 
     def display_author(self):
         """
         Creates a string for the Author.
         """
-        return ', '.join([ f"{author.last_name} {author.first_name}" for author in self.author.all()[:3] ])
-    
+        return ', '.join([f"{author.last_name} {author.first_name}" for author in self.author.all()[:3]])
+
     def list_authors(self):
         """
         Create a list of authors.
