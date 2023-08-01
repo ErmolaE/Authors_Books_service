@@ -39,7 +39,9 @@ class Book(models.Model):
         return ', '.join([ f"{author.last_name} {author.first_name}" for author in self.author.all()[:3] ])
     
     def list_authors(self):
-
+        """
+        Create a list of authors.
+        """
         return self.author.all()
 
     def __str__(self) -> str:

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.http import Http404
 from app.forms import AddAuthor, AddBook
 from .models import Author, Book
@@ -42,7 +42,52 @@ def author(request, id):
     return render(request, 'author.html', {"author": a, "authors_books": authors_books})
 
 
-def add_book(request): pass
+def add_book(request): 
+
+    if request.method == "POST": 
+        form = AddBook(request.POST, request.FILES)
+
+        if form.is_valid():
+            book_ent = Book()
+            book_ent.title = form.cleaned_data['title']
+            book_ent.description = form.cleaned_data['description']
+            book_ent.book_text = form.cleaned_data['book_text']
+            book_ent.cover = form.cleaned_data['cover']
+            book_ent.genre = form.cleaned_data['genre']
+            book_ent.isbn = form.cleaned_data['isbn']
+
+            book_ent.save()
+            authors = form.cleaned_data['author']
+            for author in authors:
+                book_ent.author.add(author)
+
+            return redirect('books')
 
 
-def add_author(request): pass
+    else: 
+        form = AddBook()
+
+    return render(request, 'add_book.html', {'form': form})
+
+
+def add_author(request): 
+    
+    if request.method == "POST": 
+        form = AddAuthor(request.POST, request.FILES)
+
+        if form.is_valid():
+            author_ent = Author()
+            author_ent.first_name = form.cleaned_data['first_name']
+            author_ent.last_name = form.cleaned_data['last_name']
+            author_ent.biography = form.cleaned_data['biography']
+            author_ent.photo = form.cleaned_data['photo']
+
+            author_ent.save()
+
+            return redirect('authors')
+
+
+    else: 
+        form = AddAuthor()
+
+    return render(request, 'add_author.html', {'form': form})
