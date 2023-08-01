@@ -43,8 +43,11 @@ def authors(request):
     """
 
     authors = Author.objects.all()
+    paginator = Paginator(authors, 18)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
 
-    return render(request, 'authors.html', {"authors": authors})
+    return render(request, 'authors.html', {"authors": authors, "page_obj": page_obj})
 
 
 def author(request, id):
