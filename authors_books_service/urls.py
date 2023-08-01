@@ -29,6 +29,7 @@ urlpatterns = [
     path('authors/', view.authors, name='authors'),
     path('add_book/', view.add_book, name='add_book'),
     path('add_author/', view.add_author, name='add_author'),
+    path('register/', view.register, name='register'),
     path('accounts/', include('django.contrib.auth.urls')),
 ]
 if settings.DEBUG:
